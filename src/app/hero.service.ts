@@ -8,11 +8,16 @@ import { HEROS } from './mock-heroes';
 @Injectable({
   providedIn: 'root'
 })
-export class HeroService {
+export class HeroService {  
 
   constructor(private messageService: MessageService) { }
 
-  getHeros(): Observable<Hero[]> {
+  getHero(id: number): Observable<Hero> {
+    this.messageService.add(`HeroService: fetched hero id=${id}`);
+    return of(HEROS.find(hero => id === hero.id));
+  }
+
+  getHeroes(): Observable<Hero[]> {
     this.messageService.add('HeroService: Fetched the heros data.');
     return of(HEROS);
   }
